@@ -1,0 +1,7 @@
+If PC A in VLAN 20, wanted to send a message to PC B in VLAN 30, the steps it would take are shown below.
+
+PC A would check whether the destination IPv4 address is in its VLAN if it is not, it would need to forward the traffic to its default gateway which is the ip address on Fa0/0 on R1.
+PC A then sends an ARP request to AS1 so as to determine the physical address of Fa0/0 on R1. Once the router replies, PC A can send the frame to the router as a unicast message, since AS1 has Fa0/0’s MAC address, it can forward the frame directly to R1.
+When the router receives the frame, it compares the destination IP address by referring to its routing table so as to know to which interface it should send the data towards the destination node.
+The router then sends an ARP request out the interface connected to the destination VLAN in this case out Fa0/1, when the switch receives the message, it would flood it to its ports and in this case, PC B would reply with its MAC address.
+R1 would then use this information to frame the packet and finally send it to PC B as a unicast frame.
