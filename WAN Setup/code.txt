@@ -1,0 +1,125 @@
+
+Router 1
+Switch 1
+PC 1 - 192.168.1.2
+PC 2 - 192.168.1.3
+PC 3 - 192.168.1.4
+
+Switch 2
+PC 4 - 192.168.2.2
+PC 5 - 192.168.2.3
+PC 6 - 192.168.2.4
+
+Router 2
+Switch 3
+PC 7 - 194.168.1.2
+PC 2 - 194.168.1.3
+PC 3 - 194.168.1.4
+
+Switch 4
+PC 4 - 196.168.1.2
+PC 5 - 196.168.1.3
+PC 6 - 196.168.1.4
+
+
+Router 1
+
+Router>en
+Router#config ter
+Router(config)#int s
+Router(config)#int serial 0/1/0
+Router(config-if)#ip address 100.0.0.1 255.0.0.0
+Router(config-if)#no shut
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
+
+Router(config-if)#exit
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/0, changed state to up
+
+%LINK-3-UPDOWN: Interface Serial0/1/0, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/0, changed state to down
+
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/0, changed state to up
+
+Router(config)#int GigabitEthernet 0/0/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shut
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#int GigabitEthernet 0/0/1
+Router(config-if)#ip address 192.168.2.1 255.255.255.0
+Router(config-if)#no shut
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
+
+Router(config-if)#exit
+Router(config)#router rip
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 192.168.2.0
+Router(config-router)#network 100.0.0.0
+Router(config-router)#exit
+
+
+Router 2
+
+Router>en
+Router#config ter
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#int s
+Router(config)#int serial 0/1/0
+Router(config-if)#ip address 100.0.0.2 255.0.0.0
+Router(config-if)#no shut
+
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/1/0, changed state to up
+
+Router(config)#int GigabitEthernet 0/0/0
+Router(config-if)#ip address 194.168.1.1 255.255.255.0
+Router(config-if)#no shut
+Router(config-if)#exit
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/0, changed state to up
+
+Router(config)#int GigabitEthernet 0/0/1
+Router(config-if)#ip address 196.168.1.1 255.255.255.0
+Router(config-if)#no shut
+Router(config-if)#exit
+
+Router(config)#router rip
+Router(config-router)#network 194.168.1.0
+Router(config-router)#network 196.168.1.0
+Router(config-router)#network 100.0.0.0
+Router(config-router)#exit
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
+
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#show ip int br
+
+Interface              IP-Address      OK? Method Status                Protocol 
+GigabitEthernet0/0/0   194.168.1.1     YES manual up                    up 
+GigabitEthernet0/0/1   196.168.1.1     YES manual up                    up 
+GigabitEthernet0/0/2   unassigned      YES unset  administratively down down 
+Serial0/1/0            100.0.0.2       YES manual up                    up 
+Serial0/1/1            unassigned      YES unset  administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+
+
+
+
