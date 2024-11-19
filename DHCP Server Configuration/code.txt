@@ -1,0 +1,9 @@
+Router#config ter
+Router(config)#int GigabitEthernet 0/0/0
+Router(config-if)#ip address 192.168.10.1 255.255.255.0
+Router(config-if)#ip helper-address 192.168.10.2
+Router(config-if)#no shut
+Router(config-if)#exit
+Router(config)#int GigabitEthernet 0/0/1
+Router(config-if)#ip address 192.168.20.1 255.255.255.0
+Router(config-if)#ip helper-address 192.168.10.2
